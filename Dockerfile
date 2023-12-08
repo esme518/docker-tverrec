@@ -25,9 +25,11 @@ ENV POWERSHELL_TELEMETRY_OPTOUT=1
 WORKDIR /app/TVerRec
 
 RUN set -ex \
-    && apt-get update && apt-get install -y \
+    && apt-get update \
+    && apt-get install --no-install-recommends -y \
        busybox \
        curl \
+       git \
        python3 \
        xz-utils \
     && ln -s /usr/bin/busybox /usr/bin/vi \
