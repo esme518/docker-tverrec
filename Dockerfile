@@ -27,7 +27,6 @@ RUN set -ex \
     && apt-get install --no-install-recommends -y \
        busybox \
        curl \
-       git \
        python3 \
        xz-utils \
     && busybox --install -s \
