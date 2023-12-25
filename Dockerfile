@@ -4,16 +4,14 @@
 
 FROM alpine as source
 
-ARG URL=https://api.github.com/repos/dongaba/TVerRec/releases/latest
+ENV REPO_URL https://github.com/dongaba/TVerRec.git
 
-WORKDIR /app
+WORKDIR /app/TVerRec
 
 RUN set -ex \
-    && apk add --update --no-cache curl \
-    && wget -O TVerRec.tar.gz $(curl -s $URL | grep tarball_url | egrep -o '\"http.+\"' | sed 's/"//g') \
-    && mkdir TVerRec \
-    && tar xvf TVerRec.tar.gz -C TVerRec --strip-components 1 \
-    && cd TVerRec \
+    && apk add --update --no-cache git \
+    && git clone ${REPO_URL} . \
+    && git checkout $(git tag | sort -V | tail -1) \
     && rm -rf .git* .vscode \
     && chmod a+x ./unix/*.sh
 
@@ -32,7 +30,7 @@ RUN set -ex \
        git \
        python3 \
        xz-utils \
-    && ln -s /usr/bin/busybox /usr/bin/vi \
+    && busybox --install -s \
     && apt-get autoremove -y \
     && apt-get clean \
     && rm -rf /tmp/* /var/lib/apt/lists/*
