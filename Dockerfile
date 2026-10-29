@@ -27,7 +27,7 @@ RUN set -ex \
     && apt-get install --no-install-recommends -y \
        busybox \
        curl \
-       python3 \
+       python3.11 \
        xz-utils \
     && busybox --install -s \
     && apt-get autoremove -y \
