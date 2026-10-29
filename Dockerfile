@@ -29,6 +29,7 @@ RUN set -ex \
        curl \
        python3.11 \
        xz-utils \
+    && ln -sf /usr/bin/python3.11 /usr/bin/python3 \
     && busybox --install -s \
     && apt-get autoremove -y \
     && apt-get clean \
